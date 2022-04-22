@@ -1,0 +1,24 @@
+{
+  "name": "eletron-robot-demo",
+  "version": "1.0.0",
+  "description": "A robot electron application for docker",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --js-flags=\"--expose_gc\"",
+    "debug": "cross-env NODE_ENV=test electron --js-flags=\"--expose_gc --max-old-space-size=512\" --inspect=9230 ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "axios": "^0.21.0",
+    "cross-env": "^7.0.2",
+    "crypto": "^1.0.1",
+    "electron": "^11.0.3",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "3",
+    "koa-router": "^10.0.0",
+    "moment": "^2.29.1"
+  }
+}

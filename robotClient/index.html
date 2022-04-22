@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+  
+<body>
+    <h1></h1>
+    We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+    <h2>Excute times: <span id="round">0</span></h2>
+    <h2>Status: <span id="status">initialing</span></h2>
+      
+    <script type="text/javascript">
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const account = urlParams.get('robotName')
+        const testNo = urlParams.get('testNo')
+        const round = urlParams.get('round')
+
+        document.querySelector('title').textContent = account;
+        document.querySelector('h1').textContent = account;
+        document.querySelector('#status').style.color = "skyblue";
+
+        const data = {
+            account,
+            testNo,
+            nowRound: 0,
+            status: 'initialing'
+        }
+        ipcRenderer.send('robot-init', data)
+        let nowRound = 0
+
+        const job = setInterval(function() {
+            nowRound++;
+            document.querySelector('#round').textContent = nowRound;
+            let status = 'running';
+            document.querySelector('#status').style.color = "seagreen";
+
+            if (nowRound >= round) {
+                status = 'done'
+                document.querySelector('#status').style.color = "cadetblue";
+
+                clearInterval(job);
+                setTimeout(window.close, 3000);
+            }
+            document.querySelector('#status').textContent = status;
+
+            const updateData = {
+                account,
+                nowRound,
+                status
+            }
+            ipcRenderer.send('robot-update', updateData);
+        }, 1000);
+    </script>
+</body>
+  
+</html>
