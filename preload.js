@@ -1,14 +1,14 @@
-const { remote, ipcRenderer } = require('electron');
+const { ipcRenderer } = require('electron')
 
-window.ipcRenderer = ipcRenderer;
+window.ipcRenderer = ipcRenderer
 
 window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-      const element = document.getElementById(selector)
-      if (element) element.innerText = text
-    }
-  
-    for (const type of ['chrome', 'node', 'electron']) {
-      replaceText(`${type}-version`, process.versions[type])
-    }
-  })
+  const replaceText = (selector, text) => {
+    const element = document.getElementById(selector)
+    if (element) element.innerText = text
+  }
+
+  for (const type of ['chrome', 'node', 'electron']) {
+    replaceText(`${type}-version`, process.versions[type])
+  }
+})
